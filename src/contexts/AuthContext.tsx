@@ -1,11 +1,10 @@
 ﻿import { createContext, useState } from "react";
 import api from "../services/api";
 import { redirect } from 'react-router-dom';
-//import { signInRequest } from "../services/auth";
 
 type AuthContextType = {
     isAuthenticated: boolean;
-    signIn: (email: string, password: string) => void;
+    signIn: ({ email, password }: SignInData) => void;
 }
 
 type SignInData = {
@@ -13,7 +12,7 @@ type SignInData = {
     password: string;
 }
 
-export const AuthContext = createContext({});
+export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({ children }: any){
     //const isAuthenticated = false;
@@ -29,6 +28,7 @@ export function AuthProvider({ children }: any){
         setIsAuthenticated(true);
         console.log(token, user);
         api.defaults.headers.Authorization = token;
+        redirect('/home');
         return {
             token,
             user

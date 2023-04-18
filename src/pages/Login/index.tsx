@@ -1,21 +1,48 @@
 ﻿import { useContext, useState } from "react";
-import { redirect } from "react-router-dom";
 import { useForm } from 'react-hook-form';
+import * as zod from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import logo_senai from '../../assets/LOGO_SENAI.png';
 import { AuthContext } from "../../contexts/AuthContext";
+import { redirect } from "react-router-dom";
+
+interface User {
+  id?: number;
+  name?: string;
+  email: string;
+  password: string;
+}
+
+const newLoginFormVallidationSchema = zod.object({
+  email: zod.string().email('E-mail é obrigatório'),
+  password: zod.string().min(1,'Informe sua senha')
+});
+
+type NewCycleFormData = zod.infer<typeof newLoginFormVallidationSchema>
 
 export function Login(){
   const [ output, setOutput ] = useState('');
 
   const { signIn } = useContext(AuthContext);
   
-  const { register, handleSubmit } = useForm();
+  const newLoginForm = useForm<NewCycleFormData>({
+    resolver: zodResolver(newLoginFormVallidationSchema),
+    defaultValues: {
+      email: '',
+      password: ''
+    }
+  });
 
-  function createUser(data: any){
+  const { handleSubmit, register} = newLoginForm;
+
+  function createUser(data: NewCycleFormData){
     console.log(data);
-    signIn(data.email, data.password)
+    const LoginUser: User = {
+      email: data.email,
+      password: data.password
+    } 
+    signIn(LoginUser)
     setOutput(JSON.stringify(data, null, 2));
-    redirect("/home")
   }
 
 

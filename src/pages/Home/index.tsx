@@ -1,28 +1,29 @@
 ﻿import { useContext, useEffect, useState } from 'react';
 import api from '../../services/api';
 import { AuthContext } from '../../contexts/AuthContext';
+import { Header } from '../../components/Header';
+import { Section } from '../../components/Section';
+import { ListAtivos } from '../../components/ListAtivos';
+
+interface User {
+    id: number;
+    name: string;
+    email: string;
+}
 
 export function Home(){
-    const [users, setUsers] = useState([]);
-    const { isAuthenticated } = useContext(AuthContext);
+    const [users, setUsers] = useState<User[]>([]);
+    //const { isAuthenticated } = useContext(AuthContext);
 
-    console.log(isAuthenticated);
+    //console.log(isAuthenticated);
 
-    useEffect(() => {
-        async () => {
-            const { data : { user } } = await api.get('/users');
-
-            setUsers(user);
-        }
-    }, [])
+   
 
     return (
-        <div>
-            {users.map((user) => (
-                <div key={user.id}>
-                    <h4>Hello {user.name}</h4>
-                </div>
-            ))}
-        </div>
+        <>
+            <Header/>
+            <Section/>
+            <ListAtivos />
+        </>
     )
 }
