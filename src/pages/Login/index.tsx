@@ -1,10 +1,12 @@
 ﻿import { useContext, useState } from "react";
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import logo_senai from '../../assets/LOGO_SENAI.png';
+import logo_senai from '../../assets/logo_project.svg';
 import { AuthContext } from "../../contexts/AuthContext";
 import { redirect } from "react-router-dom";
+import { CardDescription } from "./components/cardDescription";
+import { FormLogin } from "./components/formLogin";
 
 interface User {
   id?: number;
@@ -47,46 +49,22 @@ export function Login(){
 
 
   return (
-    <main className='h-screen bg-zinc-400 text-zinc-300 flex flex-col gap-10 items-center justify-center'>
-      <div className='flex flex-col items-center '>        
-        <img src={logo_senai} className="logo" alt="Vite logo" width={100}/>
-        <h4 className='text-red-700 m-2 text-lg font-medium'>Portal Agendamento Planta Manufatura</h4>
-      </div>
-      <form onSubmit={handleSubmit(createUser)} className='flex flex-col gap-4 w-full max-w-xs'>
-
-        <div className='flex flex-col gap-1'>
-          
-          <label htmlFor="">E-mail</label>
-
-          <input
-            type="email"
-            className='border border-zinc-600 shadow-sm rounded h-10 px-3 text-black'
-            {...register('email')}  
-          />
-
-        </div>
-
-        <div className='flex flex-col gap-1'>
+    <main className='bg-image_background bg-cover bg-center backdrop-blur-md bg-white flex flex-col gap-10 items-center justify-center'>
+      
+      <div className="mt-9">        
         
-          <label htmlFor="">Senha</label>
-
-          <input
-            type="password"
-            className='border border-zinc-600 shadow-sm rounded h-10 px-3 text-black'
-            {...register("password")}  
-          />
-
-        </div>
-
-        <button
-          type="submit"
-          className='bg-emerald-500 rounded font-semibold text-white h-10 hover:bg-emerald-600'
+        <img src={logo_senai} className="w-[72rem]" alt="Vite logo"/>
+              
+      </div>    
+        
           
-        >
-          Login
-        </button>
-      </form>
-      <pre>{output}</pre>      
+          <form onSubmit={handleSubmit(createUser)} className='flex flex-col justify-center items-center gap-4 w-full max-w-xs bg-white ml-[48rem] rounded-3xl h-[26rem]'>
+            <FormProvider {...newLoginForm}>
+              <FormLogin />
+            </FormProvider>
+          </form>
+        <CardDescription />
+            
     </main>
   )
 }
