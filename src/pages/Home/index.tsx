@@ -4,6 +4,7 @@ import { AuthContext } from '../../contexts/AuthContext';
 import { Header } from '../../components/Header';
 import { Section } from '../../components/Section';
 import { ListAtivos } from '../../components/ListAtivos';
+import { Accordion } from './components/Accordion';
 
 interface User {
     id: number;
@@ -23,7 +24,7 @@ export function Home(){
         <>
             <Header/>
             <Section/>
-            <ListAtivos />
+            <Accordion />
         </>
     )
 }

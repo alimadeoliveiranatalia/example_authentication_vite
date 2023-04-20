@@ -4,7 +4,6 @@ import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import logo_senai from '../../assets/logo_project.svg';
 import { AuthContext } from "../../contexts/AuthContext";
-import { redirect } from "react-router-dom";
 import { CardDescription } from "./components/cardDescription";
 import { FormLogin } from "./components/formLogin";
 
