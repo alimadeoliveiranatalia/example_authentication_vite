@@ -54,15 +54,14 @@ export function Login(){
         
         <img src={logo_senai} className="w-[72rem]" alt="Vite logo"/>
               
-      </div>    
-        
+      </div>        
           
-          <form onSubmit={handleSubmit(createUser)} className='flex flex-col justify-center items-center gap-4 w-full max-w-xs bg-white ml-[48rem] rounded-3xl h-[26rem]'>
-            <FormProvider {...newLoginForm}>
-              <FormLogin />
-            </FormProvider>
-          </form>
-        <CardDescription />
+      <form onSubmit={handleSubmit(createUser)} className='flex flex-col justify-center items-center gap-4 w-full max-w-xs bg-white ml-[48rem] rounded-3xl h-[26rem]'>
+        <FormProvider {...newLoginForm}>
+          <FormLogin />
+        </FormProvider>
+      </form>
+      <CardDescription />
             
     </main>
   )
