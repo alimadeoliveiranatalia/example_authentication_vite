@@ -18,22 +18,31 @@ export function AuthProvider({ children }: any){
     //const isAuthenticated = false;
     const [isAuthenticated, setIsAuthenticated ] = useState(false);
 
-    async function signIn({ email, password }: SignInData){
-        const { data: { token, user } } = await api.post('/authenticate',
-            {
-                email,
-                password
+    async function signIn({ email, password }:SignInData){
+        try {
+            const response = await fetch(
+                "api/authenticate_user",
+                {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify({ email, password })
+                }
+            );
+            const data = await response.json();
+            console.log(data)
+            
+            if(data.token){
+                
+                return {
+                    data
+                }
+            } else {
+                return data.error
             }
-        );
-        setIsAuthenticated(true);
-        console.log(token, user);
-        api.defaults.headers.Authorization = token;
-        redirect('/home');
-        return {
-            token,
-            user
+        } catch (error){
+            console.error(error)
         }
-
+      console.log('in SignIn')  
     }
 
     return (

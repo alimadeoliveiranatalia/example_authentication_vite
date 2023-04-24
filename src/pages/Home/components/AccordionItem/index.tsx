@@ -25,7 +25,7 @@ export function AccordionItem({id, company, senai_unid, url}:AtivoProps){
                             RESERVAR
                     </button>*/}
                 </summary>
-                <div key={id} className="m-10 flex justify-between border-2">
+                <div key={id} className="m-10 flex justify-around border-2">
                     <div className="flex flex-col w-1/2">
                         <p className="m-4 font-semibold text-lg">Programação da Planta Smart 4.0 para o mês:</p>
                         <iframe 
@@ -37,37 +37,67 @@ export function AccordionItem({id, company, senai_unid, url}:AtivoProps){
                     </div>
                     <form
                         action=""
-                        className="flex flex-col w-[25rem]"
+                        className="grid gap-4 w-[25rem] m-6"
                     >
-                        <label
-                          htmlFor=""
-                          className="text-2xl font-medium small-caps"
-                        >
-                            Agendar para o dia
-                        </label>
+                        <div className="flex flex-col">
+                            <label
+                              htmlFor=""
+                              className="text-base font-normal small-caps"
+                            >
+                                Agendar para o dia
+                            </label>
 
-                        <input
-                            type="date"
-                            className="bg-gray-400 shadow-sm rounded-lg h-16 px-3"
-                            placeholder="18/04/2023"
-                        />
+                            <input
+                                type="date"
+                                className="bg-gray-200 shadow-sm rounded-lg h-14 px-3 w-64"
+                                placeholder="18/04/2023"
+                            />
+
+                            <label
+                              htmlFor=""
+                              className="text-base font-normal small-caps"
+                            >
+                                Até o dia
+                            </label>
+
+                            <input
+                                type="date"
+                                className="bg-gray-200 shadow-sm rounded-lg h-14 px-3 w-64"
+                                placeholder="18/04/2023"
+                            />
+                        </div>
                         
-                        <label
-                            htmlFor=""
-                            className="text-2xl font-medium small-caps"    
-                        >
-                            hora
-                        </label>
+                        <div className="flex flex-col">
+                            <label
+                                htmlFor=""
+                                className="text-base font-medium small-caps"    
+                            >
+                                início
+                            </label>
 
-                        <input 
-                            type="time"
-                            className="bg-gray-400 shadow-sm rounded-lg h-16 px-3"
-                            placeholder=""
-                        />
+                            <input 
+                                type="time"
+                                className="bg-gray-200 shadow-sm rounded-lg h-14 px-3 w-28"
+                                placeholder="00:00"
+                            />
+
+                            <label
+                                htmlFor=""
+                                className="text-base font-medium small-caps"    
+                            >
+                                até
+                            </label>
+
+                            <input 
+                                type="time"
+                                className="bg-gray-200 shadow-sm rounded-lg h-14 px-3 w-28"
+                                placeholder="00:00"
+                            />
+                        </div>
 
                         <button
                             type="submit"
-                            className="bg-green-600 rounded-xl font-medium text-4xl text-white p-2"
+                            className="bg-green-600 rounded-xl font-medium text-4xl text-white p-2 mt-5"
                         >
                             Efetuar Reserva
                         </button>

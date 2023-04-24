@@ -16,7 +16,7 @@ interface User {
 
 const newLoginFormVallidationSchema = zod.object({
   email: zod.string().email('E-mail é obrigatório'),
-  password: zod.string().min(1,'Informe sua senha')
+  password: zod.string()
 });
 
 type NewCycleFormData = zod.infer<typeof newLoginFormVallidationSchema>
