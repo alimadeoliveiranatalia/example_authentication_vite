@@ -6,18 +6,18 @@ import { PrivateRoute } from "./components/PrivateRoute"
 import { Home } from "./pages/Home"
 
 export function MyRoutes(){
-    const {isAuthenticated} = useContext(AuthContext);
+    const { isAuthenticated } = useContext(AuthContext);
     return (
         <Routes>
             <Route path="/" element={<Login/>} />
             <Route 
                 path="/home"
                 element={ 
-                   /*<PrivateRoute
+                   <PrivateRoute
                      accessAuthenticated={isAuthenticated}
-                    >*/
+                    >
                         <Home/>
-                    /*</PrivateRoute>*/
+                    </PrivateRoute>
                 } 
             />
         </Routes>

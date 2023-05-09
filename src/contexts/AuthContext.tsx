@@ -6,7 +6,7 @@ interface AuthContextType {
   user: any;
   isAuthenticated: boolean;
   SingInValidation: ({email, password}: SignInData) => void;
-  signIn: (data: any) => void;
+  signIn: () => void;
   signOut: () => void;
 }
 
@@ -31,15 +31,9 @@ export function AuthProvider({children}: any){
                 }
             );
             
-            console.log(response.data)
-            //setUser(response.data.user);
-
-            setIsAuthenticated(true);
+            Cookie.set("token", JSON.stringify(response.data.token), {expires: 1});
 
             Cookie.set("resp_server", JSON.stringify(response.data.user), { expires: 1 })
-            const userCookie = JSON.parse(Cookie.get("resp_server")!) 
-
-            setUser(userCookie);
 
         } catch (error) {
             console.error(error)
@@ -47,12 +41,24 @@ export function AuthProvider({children}: any){
     }
 
     function signIn(){
-        //Cookie.set("response_api", user, { expires: 1});
+        const userCookie = JSON.parse(Cookie.get("resp_server")!);
+
+        setUser(userCookie);
+
+        const token = JSON.parse(Cookie.get("token")!);
+
+        if(!token){
+            setIsAuthenticated(false);
+        }
+
+        setIsAuthenticated(true);
     }
 
     function signOut(){
         setUser([]);
+
         setIsAuthenticated(false);
+        
         Cookie.remove("token")
     }
 

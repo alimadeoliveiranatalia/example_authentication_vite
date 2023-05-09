@@ -46,6 +46,7 @@ export function Login(){
     }
     
     SingInValidation(LoginUser);
+    signIn()
     navigate("/home")
     //signIn(LoginUser)
     
