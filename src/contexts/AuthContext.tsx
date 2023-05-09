@@ -1,10 +1,13 @@
 ﻿import { createContext, useState } from "react";
-import api from "../services/api";
-import { redirect } from 'react-router-dom';
+import Cookie from "js-cookie";
+import { api } from "../services/api";
 
-type AuthContextType = {
-    isAuthenticated: boolean;
-    signIn: ({ email, password }: SignInData) => void;
+interface AuthContextType {
+  user: any;
+  isAuthenticated: boolean;
+  SingInValidation: ({email, password}: SignInData) => void;
+  signIn: (data: any) => void;
+  signOut: () => void;
 }
 
 type SignInData = {
@@ -14,39 +17,47 @@ type SignInData = {
 
 export const AuthContext = createContext({} as AuthContextType);
 
-export function AuthProvider({ children }: any){
-    //const isAuthenticated = false;
-    const [isAuthenticated, setIsAuthenticated ] = useState(false);
-
-    async function signIn({ email, password }:SignInData){
+export function AuthProvider({children}: any){
+    const [ user, setUser ] = useState([]);
+    const [ isAuthenticated, setIsAuthenticated ] = useState(false);
+    
+    async function SingInValidation({email, password}: SignInData){
         try {
-            const response = await fetch(
-                "api/authenticate_user",
+            const response = await api.post(
+                "/sessions",
                 {
-                    method: "POST",
-                    headers: {"Content-Type": "application/json"},
-                    body: JSON.stringify({ email, password })
+                    email,
+                    password
                 }
             );
-            const data = await response.json();
-            console.log(data)
             
-            if(data.token){
-                
-                return {
-                    data
-                }
-            } else {
-                return data.error
-            }
-        } catch (error){
+            console.log(response.data)
+            //setUser(response.data.user);
+
+            setIsAuthenticated(true);
+
+            Cookie.set("resp_server", JSON.stringify(response.data.user), { expires: 1 })
+            const userCookie = JSON.parse(Cookie.get("resp_server")!) 
+
+            setUser(userCookie);
+
+        } catch (error) {
             console.error(error)
         }
-      console.log('in SignIn')  
+    }
+
+    function signIn(){
+        //Cookie.set("response_api", user, { expires: 1});
+    }
+
+    function signOut(){
+        setUser([]);
+        setIsAuthenticated(false);
+        Cookie.remove("token")
     }
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, signIn}}>
+        <AuthContext.Provider value={{ user, signIn, signOut, isAuthenticated, SingInValidation }} >
             {children}
         </AuthContext.Provider>
     )

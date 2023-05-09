@@ -1,5 +1,6 @@
 ﻿import { useState } from "react";
 import { AtivoProps } from "../Accordion";
+import { Calendar } from "../Calendar";
 
 
 export function AccordionItem({id, company, senai_unid, url}:AtivoProps){
@@ -28,12 +29,7 @@ export function AccordionItem({id, company, senai_unid, url}:AtivoProps){
                 <div key={id} className="m-10 flex justify-around border-2">
                     <div className="flex flex-col w-1/2">
                         <p className="m-4 font-semibold text-lg">Programação da Planta Smart 4.0 para o mês:</p>
-                        <iframe 
-                            className=" h-screen m-4"
-                            src="https://outlook.office365.com/owa/calendar/26e71588a73f440c88d7154f2323b1f8@sp.senai.br/7cc108d7aa064358aef0e8a1b1a8b3799129753312227258037/calendar.html"
-                            aria-label="calendário outlook"
-                            allowFullScreen                    
-                        ></iframe>
+                        <Calendar />
                     </div>
                     <form
                         action=""

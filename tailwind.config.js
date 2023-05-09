@@ -7,7 +7,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'image_background': 'url(../../public/background_machine.jpg)'
+        'image_background': 'url(/background_machine.jpg)'
       }
     },
   },

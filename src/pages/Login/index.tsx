@@ -6,6 +6,7 @@ import logo_senai from '../../assets/logo_project.svg';
 import { AuthContext } from "../../contexts/AuthContext";
 import { CardDescription } from "./components/cardDescription";
 import { FormLogin } from "./components/formLogin";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   id?: number;
@@ -22,9 +23,9 @@ const newLoginFormVallidationSchema = zod.object({
 type NewCycleFormData = zod.infer<typeof newLoginFormVallidationSchema>
 
 export function Login(){
-  const [ output, setOutput ] = useState('');
-
-  const { signIn } = useContext(AuthContext);
+  
+  const { signIn, SingInValidation, isAuthenticated } = useContext(AuthContext);
+  const navigate = useNavigate();
   
   const newLoginForm = useForm<NewCycleFormData>({
     resolver: zodResolver(newLoginFormVallidationSchema),
@@ -36,14 +37,18 @@ export function Login(){
 
   const { handleSubmit, register} = newLoginForm;
 
-  function createUser(data: NewCycleFormData){
-    console.log(data);
+  function loginUser(data: NewCycleFormData){
+    //console.log(data);
+    
     const LoginUser: User = {
       email: data.email,
       password: data.password
-    } 
-    signIn(LoginUser)
-    setOutput(JSON.stringify(data, null, 2));
+    }
+    
+    SingInValidation(LoginUser);
+    navigate("/home")
+    //signIn(LoginUser)
+    
   }
 
 
@@ -56,7 +61,7 @@ export function Login(){
               
       </div>        
           
-      <form onSubmit={handleSubmit(createUser)} className='flex flex-col justify-center items-center gap-4 w-full max-w-xs bg-white ml-[48rem] rounded-3xl h-[26rem]'>
+      <form onSubmit={handleSubmit(loginUser)} className='flex flex-col justify-center items-center gap-4 w-full max-w-xs bg-white ml-[48rem] rounded-3xl h-[26rem]'>
         <FormProvider {...newLoginForm}>
           <FormLogin />
         </FormProvider>
