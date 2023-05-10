@@ -3,6 +3,7 @@
 import icon_manufature from '../../assets/icon_plant_manufature.svg';
 import logo_project from '../../assets/logo_project.svg';
 import * as Accordion from '@radix-ui/react-accordion';
+import * as Dialog from '@radix-ui/react-dialog';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Header } from '../../components/Header';
 //import { Accordion } from './components/Accordion';
@@ -149,7 +150,27 @@ export function Home(){
                     <span className="font-normal ml-2 mt-3">Oficina de Iot turma de Mecatrônica</span>
                     <span className="mt-3 ml-4">Dia: 16/05 de 10:00hrs às 11:00hrs</span>
                 </div>
-                
+                <Dialog.Root>
+                    <Dialog.Trigger className="h-10 border border-blue-500 rounded hover:bg-blue-100 mr-2">
+                        <span className="font-bold text-sm text-blue-500 uppercase not-italic p-3 ">ver detalhes</span>
+                    </Dialog.Trigger>
+                    <Dialog.Portal className="">
+                        <Dialog.Overlay className="bg-gray-800"/>
+                        <Dialog.Content className="w-2/4 h-28 bg-gray-500 translate-x-2/4 -translate-y-full">
+                            <Dialog.Title className=" flex flex-row justify-between bg-gray-300 ">
+                                <span className="font-bold uppercase">Informações da reserva</span>
+                                <Dialog.Close>Fechar</Dialog.Close>
+                            </Dialog.Title>
+                            <Dialog.Description>
+                                <ul>
+                                    <li><strong>Ativo:</strong>Planta Smart 4.0 - Senai Vila Mariana</li>
+                                    <li><strong>Data e Horário</strong> 16/05 à 19/05 de 09:00 às 11:00</li>
+                                    <li><strong>Ocasião:</strong> Oficina de Iot para a turma de Mecatrônica</li>
+                                </ul>
+                            </Dialog.Description>
+                        </Dialog.Content>
+                    </Dialog.Portal>
+                </Dialog.Root>
             </div>
 
         </>
