@@ -154,10 +154,10 @@ export function Home(){
                     <Dialog.Trigger className="h-10 border border-blue-500 rounded hover:bg-blue-100 mr-2">
                         <span className="font-bold text-sm text-blue-500 uppercase not-italic p-3 ">ver detalhes</span>
                     </Dialog.Trigger>
-                    <Dialog.Portal className="">
-                        <Dialog.Overlay className="bg-gray-800"/>
-                        <Dialog.Content className="w-2/4 h-28 bg-gray-500 translate-x-2/4 -translate-y-full">
-                            <Dialog.Title className=" flex flex-row justify-between bg-gray-300 ">
+                    <Dialog.Portal className="relative">
+                        <Dialog.Overlay className="fixed inset-0 bg-black opacity-50"/>
+                        <Dialog.Content className="fixed w-2/4 h-28 bg-gray-500 translate-x-2/4 -translate-y-60">
+                            <Dialog.Title className="relative flex flex-row justify-between bg-gray-300 ">
                                 <span className="font-bold uppercase">Informações da reserva</span>
                                 <Dialog.Close>Fechar</Dialog.Close>
                             </Dialog.Title>
