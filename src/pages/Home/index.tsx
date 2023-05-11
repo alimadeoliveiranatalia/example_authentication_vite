@@ -1,17 +1,16 @@
 ﻿import { useContext, useEffect, useState } from 'react';
-//import api from '../../services/api';
 import icon_manufature from '../../assets/icon_plant_manufature.svg';
 import logo_project from '../../assets/logo_project.svg';
 import * as Accordion from '@radix-ui/react-accordion';
 import * as Dialog from '@radix-ui/react-dialog';
 import { AuthContext } from '../../contexts/AuthContext';
 import { Header } from '../../components/Header';
-//import { Accordion } from './components/Accordion';
 import Cookie from 'js-cookie';
 import { Calendar } from './components/Calendar';
 
 export function Home(){   
     const { signOut } = useContext(AuthContext);
+
 
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
@@ -23,7 +22,7 @@ export function Home(){
 
     return (
         <>
-            <Header nameUser={userCookie.name} urlUser='https://media.istockphoto.com/id/1323990939/pt/foto/a-studio-portrait-of-a-young-millennial-woman.webp?s=2048x2048&w=is&k=20&c=ewxA2yAAbQ1h1TXi1iTeXE_gwvo4C7FgHvw3KOQ1A8w='/>
+            <Header nameUser={userCookie.name} urlUser='https://avatars.githubusercontent.com/u/67019361?v=4'/>
             <div className="flex flex-row items-center justify-between m-6">
                 <span className="font-medium text-2xl">Olá {userCookie.name}</span> 
                 <img src={logo_project} alt=""/>
@@ -35,6 +34,11 @@ export function Home(){
                 <span className="font-bold text-sm text-blue-500 uppercase not-italic">Sair</span>
             </button>
             <br/>
+
+            <div className=" m-4">
+                <Calendar />
+            </div>
+
             <br/>
             <span className="font-bold text-2xl uppercase ml-6">Ativos</span>
 
@@ -57,9 +61,7 @@ export function Home(){
                     
                     <Accordion.Content 
                         className="flex flex-row justify-around border">
-                        <div className="w-2/5 mt-4">
-                            <Calendar />
-                        </div>
+                        
                         
                         <form action="" className="w-2/5 flex flex-col mt-2">
 
@@ -135,6 +137,7 @@ export function Home(){
                             <button
                                 type="submit"
                                 className="bg-green-600 rounded-xl font-medium text-base text-white p-2 mt-5 mb-5 hover:bg-green-500"
+                                /*onClick={handleSelectReserva}*/
                             >
                                 Realizar Reserva
                             </button>
@@ -156,13 +159,13 @@ export function Home(){
                     </Dialog.Trigger>
                     <Dialog.Portal className="relative">
                         <Dialog.Overlay className="fixed inset-0 bg-black opacity-50"/>
-                        <Dialog.Content className="fixed w-2/4 h-28 bg-gray-500 translate-x-2/4 -translate-y-60">
-                            <Dialog.Title className="relative flex flex-row justify-between bg-gray-300 ">
-                                <span className="font-bold uppercase">Informações da reserva</span>
+                        <Dialog.Content className="fixed w-2/4 bg-white translate-x-2/4 -translate-y-96">
+                            <Dialog.Title className="relative flex flex-row justify-between bg-gray-300">
+                                <span className="font-bold uppercase p-4">Informações da reserva</span>
                                 <Dialog.Close>Fechar</Dialog.Close>
                             </Dialog.Title>
-                            <Dialog.Description>
-                                <ul>
+                            <Dialog.Description className="m-2">
+                                <ul className="m-10">
                                     <li><strong>Ativo:</strong>Planta Smart 4.0 - Senai Vila Mariana</li>
                                     <li><strong>Data e Horário</strong> 16/05 à 19/05 de 09:00 às 11:00</li>
                                     <li><strong>Ocasião:</strong> Oficina de Iot para a turma de Mecatrônica</li>
