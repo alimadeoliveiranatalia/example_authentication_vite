@@ -56,7 +56,7 @@ export function AuthProvider({children}: any){
 
         setIsAuthenticated(false);
         
-        Cookie.remove("token")
+        Cookie.remove("resp_server")
     }
 
     return (
