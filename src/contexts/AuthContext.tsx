@@ -30,10 +30,7 @@ export function AuthProvider({children}: any){
                     password
                 }
             );
-            
-            Cookie.set("token", JSON.stringify(response.data.token), {expires: 1});
-
-            Cookie.set("resp_server", JSON.stringify(response.data.user), { expires: 1 })
+            Cookie.set("resp_server", JSON.stringify(response.data), { expires: 1 })
 
         } catch (error) {
             console.error(error)
@@ -45,7 +42,7 @@ export function AuthProvider({children}: any){
 
         setUser(userCookie);
 
-        const token = JSON.parse(Cookie.get("token")!);
+        const token = userCookie.token;
 
         if(!token){
             setIsAuthenticated(false);
