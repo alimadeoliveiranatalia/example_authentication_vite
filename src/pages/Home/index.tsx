@@ -115,7 +115,7 @@ export function Home(){
 
     useEffect(() => {
         loadReservas();
-    },[reserva]);
+    },[reservas]);
     
     const myReservas = reservas.map((reserva:SelectReservaData) => {
         return (
@@ -130,14 +130,14 @@ export function Home(){
                         <span className="font-bold text-sm text-blue-500 uppercase not-italic p-3 ">ver detalhes</span>
                     </Dialog.Trigger>
                     <Dialog.Portal className="relative">
-                        <Dialog.Overlay className="fixed inset-0 bg-black opacity-50"/>
-                        <Dialog.Content className="fixed w-2/4 bg-white translate-x-2/4 -translate-y-96">
+                        <Dialog.Overlay className="absolute inset-0 bg-black opacity-50"/>
+                        <Dialog.Content className="fixed w-2/4 bg-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                             <Dialog.Title className="relative flex flex-row justify-between bg-gray-300">
                                 <span className="font-bold uppercase p-4">Informações da reserva</span>
                                 <Dialog.Close>Fechar</Dialog.Close>
                             </Dialog.Title>
                             <Dialog.Description className="m-2">
-                                <ul className="m-10">
+                                <ul className="m-10 p-4">
                                     <li><strong>Ativo:</strong><p>Planta Smart 4.0 - Senai Vila Mariana</p></li>
                                     <li><strong>Data e Horário</strong><p> {String(reserva.date_initial_reserva)} à {String(reserva.date_finished_reserva)} 
                                     de {reserva.horario_initial}hrs às {reserva.horario_finished}hrs</p></li>
@@ -212,6 +212,15 @@ export function Home(){
 
             <span className="font-bold text-2xl uppercase ml-6">Minhas Reservas</span>
             {myReservas}
+
+            {/*<iframe 
+                width="560"
+                height="315"
+                src="http://192.168.15.203:8765/picture/1/frame/"
+                title="YouTube video player" frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+    />*/}
 
         </>
     )

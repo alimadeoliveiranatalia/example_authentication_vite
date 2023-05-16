@@ -3,9 +3,11 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import ptBrLocale from "@fullcalendar/core/locales/pt-br";
 import interactionPlugin from "@fullcalendar/interaction";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Cookie from "js-cookie";
 import { api } from "../../../../services/api";
+import { AuthContext } from "../../../../contexts/AuthContext";
+import { SelectReservaData } from "../..";
 
 interface FullCalendarProps{
     id: string;
@@ -35,7 +37,7 @@ const events = [
 
 const list_events = events.map((event) => {
     return {
-        allDay: true,
+        //allDay: true,
         title: event.title,
         start: event.startDate + "T" + event.startTime,
         //startTime: event.startTime,
@@ -45,22 +47,43 @@ const list_events = events.map((event) => {
 })
 
 export function Calendar(){
-    /*const [ reservas, setReservas ] = useState([]);
-    
-    const reservas_cookies = JSON.parse(Cookie.get("reserva")!);
+    /*const { user } = useContext(AuthContext);
 
-    setReservas(reservas_cookies);
+    const [ listReservas, setListReservas ] = useState([]);
 
-    console.log(reservas);*/
+    async function carregarReservas(){
+        const token = user.token;
+
+        const response = await api.get(
+            "/reservas/user_reservas",
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }
+        );
+
+        setListReservas(response.data);
+        console.log(response.data)
+    }
+
+    useEffect(() => {
+        carregarReservas();
+    }, [listReservas]);
+
+    const allReservas = listReservas.map((reserva: SelectReservaData) => {
+        return {
+            title : reserva.finalidade,
+            start: reserva.date_initial_reserva ,
+            end: reserva.date_finished_reserva 
+        }
+    });*/
+
     return (
         <FullCalendar 
             plugins={[ dayGridPlugin, interactionPlugin, timeGridPlugin ]}
             initialView="dayGridMonth"
-            headerToolbar={{
-                left: "prev, next",
-                center: "title",
-                right: "dayGridMonth, timeGridWeek, timeGridDay"
-            }}
+            
             locales={[ptBrLocale]}
             showNonCurrentDates={false}
             //select={handleSelectReserva}
