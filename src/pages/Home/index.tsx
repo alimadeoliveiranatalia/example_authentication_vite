@@ -11,6 +11,7 @@ import { Header } from '../../components/Header';
 import { Calendar } from './components/Calendar';
 import { api } from '../../services/api';
 import { FormEvent } from './components/FormEvent';
+import { Loading } from '../../components/Loading';
 
 export interface SelectReservaData {
     id?: string;
@@ -101,16 +102,23 @@ export function Home(){
     }
 
     async function loadReservas(){
-        const token = user.token;
+        try {
+            const token = user.token;
 
-        const response = await api.get(
-            "/reservas/user_reservas",
-            {
-                headers: { Authorization: `Bearer ${token}`}
-            }
-        );
+            const response = await api.get(
+                "/reservas/user_reservas",
+                {
+                    headers: { Authorization: `Bearer ${token}`}
+                }
+            );
 
-        setReservas(response.data);
+            setReservas(response.data);
+
+            //setLoading(false);
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     useEffect(() => {
@@ -211,7 +219,7 @@ export function Home(){
             </Accordion.Root>
 
             <span className="font-bold text-2xl uppercase ml-6">Minhas Reservas</span>
-            {myReservas}
+            { myReservas }
 
             {/*<iframe 
                 width="560"
@@ -221,6 +229,15 @@ export function Home(){
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
     />*/}
+
+            <iframe 
+                width="560"
+                height="315"
+                src="http://video.kiklot.com.br/"
+                title="YouTube video player" frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+            />
 
         </>
     )

@@ -19,6 +19,7 @@ export const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({children}: any){
     const [ user, setUser ] = useState([]);
+
     const [ isAuthenticated, setIsAuthenticated ] = useState(false);
     
     async function SingInValidation({email, password}: SignInData){
@@ -39,6 +40,7 @@ export function AuthProvider({children}: any){
 
     function signIn(){
         const userCookie = JSON.parse(Cookie.get("resp_server")!);
+        console.log(userCookie)
 
         setUser(userCookie);
 

@@ -7,6 +7,7 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { CardDescription } from "./components/cardDescription";
 import { FormLogin } from "./components/formLogin";
 import { useNavigate } from "react-router-dom";
+import { Loading } from "../../components/Loading";
 
 interface User {
   id?: number;
@@ -25,6 +26,9 @@ type NewCycleFormData = zod.infer<typeof newLoginFormVallidationSchema>
 export function Login(){
   
   const { signIn, SingInValidation, isAuthenticated } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(false);
+
   const navigate = useNavigate();
   
   const newLoginForm = useForm<NewCycleFormData>({
@@ -35,21 +39,30 @@ export function Login(){
     }
   });
 
-  const { handleSubmit, register} = newLoginForm;
+  const { handleSubmit } = newLoginForm;
 
   function loginUser(data: NewCycleFormData){
-    //console.log(data);
     
+
     const LoginUser: User = {
       email: data.email,
       password: data.password
     }
     
     SingInValidation(LoginUser);
-    signIn()
-    navigate("/home")
-    //signIn(LoginUser)
+
+    setLoading(true);    
     
+    setTimeout(() => {
+      signIn();
+          
+      navigate("/home");  
+    }, 2000);
+    
+  }
+
+  if(loading){
+    return <Loading />
   }
 
 
