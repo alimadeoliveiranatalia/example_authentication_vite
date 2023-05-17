@@ -12,6 +12,7 @@ import { Calendar } from './components/Calendar';
 import { api } from '../../services/api';
 import { FormEvent } from './components/FormEvent';
 import { Loading } from '../../components/Loading';
+import { Link } from 'react-router-dom';
 
 export interface SelectReservaData {
     id?: string;
@@ -33,7 +34,7 @@ const newAddReservaFormValidationSchema = zod.object({
 type NewReservaFormData = zod.infer<typeof newAddReservaFormValidationSchema>
 
 export function Home(){   
-    const { signOut, user } = useContext(AuthContext);
+    const { signOut, user, isAuthenticated } = useContext(AuthContext);
 
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
 
@@ -53,6 +54,11 @@ export function Home(){
     });
 
     const { handleSubmit } = newAddReserva;
+
+    const params_link = {
+        pathname : "/cameras",
+        state: { isAuthenticated }
+    }
 
     function AddReserva(data: NewReservaFormData){
         const newReserva: SelectReservaData = {
@@ -133,6 +139,12 @@ export function Home(){
                     <span className="font-normal ml-2 mt-3">{reserva.finalidade}</span>
                     <span className="mt-3 ml-4">Dia: {String(reserva.date_initial_reserva)} de {reserva.horario_initial}hrs às {reserva.horario_finished}hrs</span>
                 </div>
+                <Link 
+                    to={params_link}
+                    className="w-24 h-10 p-3 border border-green-700 rounded hover:bg-green-200"
+                >
+                   <span className="font-bold text-sm text-green-700 uppercase not-italic">Acessar</span>
+                </Link>
                 <Dialog.Root>
                     <Dialog.Trigger className="h-10 border border-blue-500 rounded hover:bg-blue-100 mr-2">
                         <span className="font-bold text-sm text-blue-500 uppercase not-italic p-3 ">ver detalhes</span>
@@ -158,7 +170,6 @@ export function Home(){
             </div>
         )
     });
-    
 
     return (
         <>
@@ -219,25 +230,7 @@ export function Home(){
             </Accordion.Root>
 
             <span className="font-bold text-2xl uppercase ml-6">Minhas Reservas</span>
-            { myReservas }
-
-            {/*<iframe 
-                width="560"
-                height="315"
-                src="http://192.168.15.203:8765/picture/1/frame/"
-                title="YouTube video player" frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-    />*/}
-
-            <iframe 
-                width="560"
-                height="315"
-                src="http://video.kiklot.com.br/"
-                title="YouTube video player" frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
-            />
+            { reservas.length === 0 ? <h2 className="font-semibold text-lg">Você não possui reservas</h2> : myReservas }           
 
         </>
     )

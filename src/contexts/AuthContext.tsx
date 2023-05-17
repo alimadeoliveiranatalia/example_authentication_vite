@@ -40,7 +40,6 @@ export function AuthProvider({children}: any){
 
     function signIn(){
         const userCookie = JSON.parse(Cookie.get("resp_server")!);
-        console.log(userCookie)
 
         setUser(userCookie);
 

@@ -4,12 +4,14 @@ import { useContext } from "react"
 import { AuthContext } from "./contexts/AuthContext"
 import { PrivateRoute } from "./components/PrivateRoute"
 import { Home } from "./pages/Home"
+import { Cameras } from "./pages/Cameras"
 
 export function MyRoutes(){
     const { isAuthenticated } = useContext(AuthContext);
     return (
         <Routes>
             <Route path="/" element={<Login/>} />
+            
             <Route 
                 path="/home"
                 element={ 
@@ -19,6 +21,17 @@ export function MyRoutes(){
                         <Home/>
                     </PrivateRoute>
                 } 
+            />
+            
+            <Route
+                path="/cameras"
+                element={
+                    <PrivateRoute
+                        accessAuthenticated={isAuthenticated}
+                    >
+                        <Cameras />
+                    </PrivateRoute>
+                }
             />
         </Routes>
     )
