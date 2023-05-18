@@ -230,7 +230,13 @@ export function Home(){
             </Accordion.Root>
 
             <span className="font-bold text-2xl uppercase ml-6">Minhas Reservas</span>
-            { reservas.length === 0 ? <h2 className="font-semibold text-lg">Você não possui reservas</h2> : myReservas }           
+
+            { reservas.length === 0 ? 
+                <div className="m-6">
+                    <h2 className="m-4 font-semibold text-lg">Você não possui reservas</h2>
+                </div>
+                : myReservas 
+            }           
 
         </>
     )
