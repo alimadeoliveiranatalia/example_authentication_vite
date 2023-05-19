@@ -1,5 +1,5 @@
 ﻿import axios from 'axios';
 
 export const api =  axios.create({
-    baseURL: process.env.API_AUTENTICACAO
+    baseURL: import.meta.env.API_AUTENTICACAO
 });
