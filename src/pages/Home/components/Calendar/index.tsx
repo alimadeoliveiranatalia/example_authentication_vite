@@ -46,10 +46,17 @@ const list_events = events.map((event) => {
     }
 })
 
-export function Calendar(){
-    /*const { user } = useContext(AuthContext);
-
-    const [ listReservas, setListReservas ] = useState([]);
+export function Calendar({allReservas}:any){
+    //console.log(allReservas)
+    const list_all_reservas = allReservas.map((reserva: any) => {
+        return {
+            title: reserva.finalidade,
+            start: reserva.date_initial_reserva + "T" + reserva.horario_initial,
+            end: reserva.date_finished_reserva + "T" + reserva.horario_finished
+        }
+    });
+    //console.log(list_all_reservas)
+    /*const [ listReservas, setListReservas ] = useState([]);
 
     async function carregarReservas(){
         const token = user.token;
@@ -87,7 +94,7 @@ export function Calendar(){
             locales={[ptBrLocale]}
             showNonCurrentDates={false}
             //select={handleSelectReserva}
-            events={list_events}
+            events={list_all_reservas}
             editable={true}
             
         />

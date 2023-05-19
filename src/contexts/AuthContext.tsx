@@ -31,7 +31,7 @@ export function AuthProvider({children}: any){
                     password
                 }
             );
-            Cookie.set("resp_server", JSON.stringify(response.data), { expires: 1 })
+            Cookie.set("resp_server", JSON.stringify(response.data))
 
         } catch (error) {
             console.error(error)

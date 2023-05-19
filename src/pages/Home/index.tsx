@@ -3,6 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import icon_manufature from '../../assets/icon_plant_manufature.svg';
+import icon_close_modal from '../../assets/close_button.svg';
 import logo_project from '../../assets/logo_project.svg';
 import * as Accordion from '@radix-ui/react-accordion';
 import * as Dialog from '@radix-ui/react-dialog';
@@ -16,8 +17,8 @@ import { Link } from 'react-router-dom';
 
 export interface SelectReservaData {
     id?: string;
-    date_initial_reserva: Date;
-    date_finished_reserva: Date;
+    date_initial_reserva: string;
+    date_finished_reserva: string;
     horario_initial: string;
     horario_finished: string;
     finalidade: string;
@@ -62,8 +63,8 @@ export function Home(){
 
     function AddReserva(data: NewReservaFormData){
         const newReserva: SelectReservaData = {
-            date_initial_reserva: new Date(data.date_initial_reserva),
-            date_finished_reserva: new Date(data.date_finished_reserva),
+            date_initial_reserva: data.date_initial_reserva,
+            date_finished_reserva: data.date_finished_reserva,
             horario_initial: data.horario_initial,
             horario_finished: data.horario_finished,
             finalidade: data.finalidade
@@ -99,7 +100,7 @@ export function Home(){
                     headers : { Authorization: `Bearer ${token}`}
                 }
             );
-            console.log(response.data);
+            //console.log(response.data);
 
             setReserva(response.data);
         } catch (error) {
@@ -154,7 +155,9 @@ export function Home(){
                         <Dialog.Content className="fixed w-2/4 bg-white top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                             <Dialog.Title className="relative flex flex-row justify-between bg-gray-300">
                                 <span className="font-bold uppercase p-4">Informações da reserva</span>
-                                <Dialog.Close>Fechar</Dialog.Close>
+                                <Dialog.Close className="w-8 h-8 m-4">
+                                    <img src={icon_close_modal} alt=""/>
+                                </Dialog.Close>
                             </Dialog.Title>
                             <Dialog.Description className="m-2">
                                 <ul className="m-10 p-4">
@@ -209,8 +212,8 @@ export function Home(){
                     <Accordion.Content 
                         className="flex flex-row justify-around border">
                         
-                        <div className=" m-4">
-                            <Calendar />
+                        <div className="w-1/2 mt-2">
+                            <Calendar allReservas={reservas}/>
                         </div>
                         
                         <form onSubmit={handleSubmit(AddReserva)} className="w-2/5 flex flex-col mt-2">
